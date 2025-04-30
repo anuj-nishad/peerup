@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  profile     PeerProfile?
+  imageUrl    String?  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PeerProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  name        String   
+  skills      Skill[]
+  interests   String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String
+  profileId   String
+  profile     PeerProfile @relation(fields: [profileId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Match {
+  id          String   @id @default(uuid())
+  userId      String
+  peerId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NFTProof {
+  id          String   @id @default(uuid())
+  userId      String
+  tokenId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
