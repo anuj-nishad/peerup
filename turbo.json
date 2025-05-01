@@ -18,5 +18,5 @@
       "persistent": true
     }
   },
-  "globalEnv": ["CLERK_SECRET_KEY", "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY"]
+  "globalEnv": ["CLERK_SECRET_KEY", "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "DATABASE_URL"]
 }
